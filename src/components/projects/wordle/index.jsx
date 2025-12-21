@@ -2,7 +2,9 @@ import React from "react";
 
 const Wordle = () => {
 
-    return (<>Wordle</>)
+    return (
+        <div>Wordle Component</div>
+    )
 }
 
 export default Wordle;
