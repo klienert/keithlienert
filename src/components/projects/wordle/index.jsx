@@ -3,7 +3,7 @@ import React from "react";
 const Wordle = () => {
 
     return (
-        <div>Wordle Component</div>
+        <div>Coming Soon!</div>
     )
 }
 
