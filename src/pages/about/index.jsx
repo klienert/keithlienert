@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const About = () => {
 
@@ -11,7 +12,7 @@ const About = () => {
     ];
 
     const experience = [
-        {name: "Educational Service Center, Region 6", title: "Web Developer", duties: ['Maintain and update the current eduhero.net site and collaborate in the development of a new version of the site using a JavaScript-React-based stack.', 'Recent accomplishments include API integration with third-party vendors, accessibility enhancements, and general updates.'], beg_year: 2023, end_year: null},        
+        {name: "Educational Service Center, Region 6", title: "Web Developer", duties: ['Maintain and update the current eduhero.net site and collaborate in the development of a new version of the site using a JavaScript-React-based stack.', 'Recent accomplishments include API integration with third-party vendors, accessibility enhancements, and general updates.'], beg_year: 2023, end_year: null, links: {name: 'Eduhero', url: 'https://www.eduhero.net'}},
         {name: "State of Wisconsin, Division of Enterprise Technology", title: "Mainframe Internship", duties: ['Received training on various software components, developed daily and weekly reports on API data acquired through a version control software on the mainframe.', 'Transferrable skills include Collaboration, Project Management, Troubleshooting, and Effective Communication in a corporate enterprise environment'], beg_year: 2021, end_year: 2021},
         {name: "University of Wisconsin-Platteville", title: "Lecturer", duties: ['Taught courses in Percussion, Music Theory, Music Technology, and Music Appreciation', 'Transferrable skills include Instruction and Mentorship, Project Analysis and Management, Leadership and Delegation, and Public Speaking'], beg_year: 2010, end_year: 2022},        
     ];
@@ -39,7 +40,15 @@ const About = () => {
                                 <li key={`${i}_exp`}>
                                     <h3>{e.title}</h3>
                                     <p className="about-meta">{e.name} | {e.beg_year} {e.end_year ? `- ${e.end_year}` : ''}</p>
-                                    <p className="about-text">{e.duties}</p>
+                                    <p className="about-text">{e.duties.map((s) => <>{s} </>)}</p>
+                                    {e?.links && 
+                                        <Link 
+                                            to={e.links.url}
+                                            target="_blank"
+                                        >
+                                            {e.links.name}
+                                        </Link>
+                                    }
                                 </li>
                             ))}
                         </ul>
