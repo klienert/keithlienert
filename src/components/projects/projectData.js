@@ -5,6 +5,7 @@ export const projectData = [
         description: 'Browser based version of the popular NY Times Game',
         tech: ['JavaScript', 'HTML', 'CSS'],
         tags: ['React', 'JS'],
+        github: 'https://github.com/klienert',
         featured: true
     },
     {
@@ -13,6 +14,7 @@ export const projectData = [
         description: 'Simple Weather app that consumes a free REST API',
         tech: ['JavaScript', 'React', 'API'],
         tags: ['JS', 'HTML', 'CSS', 'API'],
+        github: 'https://github.com/klienert',
         featured: true
     },
     {
@@ -21,6 +23,7 @@ export const projectData = [
         description: 'Trivia Game that pulls data from an external API and tracks user score.',
         tech: ['React', 'API'],
         tags: ['React', 'API'],
+        github: 'https://github.com/klienert',
         featured: false
     }
 ]
