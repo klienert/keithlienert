@@ -9,7 +9,7 @@ const WeatherFetch = () => {
     const [zipcode, setZipcode] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [error, setError] = useState('');
-    const [firstMount, setFirstMount] = useState(true);
+    // const [firstMount, setFirstMount] = useState(true);
 
     const validateZipcode = (zip) => {
         // US zipcodes 12345 or 12345-6789
