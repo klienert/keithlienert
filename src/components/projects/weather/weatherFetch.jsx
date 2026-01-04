@@ -9,13 +9,13 @@ const WeatherFetch = () => {
     const [zipcode, setZipcode] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [error, setError] = useState('');
+    const [firstMount, setFirstMount] = useState(true);
 
     const validateZipcode = (zip) => {
         // US zipcodes 12345 or 12345-6789
         const zipRegex = /^\d{5}(-\d{4})?$/;
         return zipRegex.test(zip);
     };
-
 
     const fetchWeather = async (zip) => {
         if (!validateZipcode(zip)) {
@@ -66,6 +66,24 @@ const WeatherFetch = () => {
     }
 
     useEffect(() => {
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                if (data.postal) {
+                    // console.log('ipapi: ', data.postal);
+                    setZipcode(data.postal);
+                    fetchWeather(data.postal);                    
+                }
+            })
+            .catch(() => {
+                console.warn('IP lookup failed')
+            })
+            .finally(() => {
+                setZipcode(null);
+            })
+    },[]);
+
+    useEffect(() => {
         fetchWeather(zipcode);
     },[zipcode]);
 
@@ -76,7 +94,7 @@ const WeatherFetch = () => {
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
-                    placeholder="Enter Zipcode (e.g., 98765)"
+                    placeholder="Enter Zipcode (e.g., 10001)"
                     className="zipcode-input"
                 />
                 <button
