@@ -57,6 +57,11 @@
     border-radius: 999px;
 }
 
+.project-button-row {
+    display: flex;
+    justify-content: space-between;   
+}
+
 .project-button {
     align-self: flex-start;
     padding: 0.5rem 1rem;
@@ -68,7 +73,17 @@
     cursor: pointer;
 }
 
-
 .project-button:hover {
     background: #020617;
+}
+
+.github-button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    cursor: pointer;
 }
