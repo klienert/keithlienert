@@ -1,5 +1,4 @@
 // import React from "react";
-import '../../assets/css/pages/sidebar/sidebar.css'
 import keithPic from '../../assets/images/KeithLienert_biopic.jpg'
 import { CiMenuBurger } from 'react-icons/ci';
 import { IoMdClose } from 'react-icons/io';
