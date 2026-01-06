@@ -16,29 +16,29 @@ const Letter = ( { letterPos, attemptVal } ) => {
 
     const letter = board[attemptVal][letterPos];
     const correct = correctWord.toUpperCase()[letterPos] === letter;
-    const almost = !correct && letter !== "" && correctWord.toUpperCase().includes(letter);    
+    // const almost = !correct && letter !== "" && correctWord.toUpperCase().includes(letter);    
 
     const setLetterClass = () => {
         let result = 'wordle-letter';
-        if (currAttempt.attempt > attemptVal) {
-            if (correct) {
-                result += 'correct';
-            } else if (almost) {
-                result += 'present';
-            } else {
-                result += 'absent';
-            }
-        }
+        // if (currAttempt.attempt > attemptVal) {
+        //     if (correct) {
+        //         result += 'correct';
+        //     } else if (almost) {
+        //         result += 'present';
+        //     } else {
+        //         result += 'absent';
+        //     }
+        // }
         return result;
     }
 
     let letterClass = setLetterClass();
 
-    useEffect(() => {
-        if (letter !== "" && !almost && correct) {
-            setCorrectLetters((prev) => [...prev, letter]);
-        }
-    },[almost, correct, currAttempt.attempt, letter, setCorrectLetters]);
+    // useEffect(() => {
+    //     if (letter !== "" && !almost && correct) {
+    //         setCorrectLetters((prev) => [...prev, letter]);
+    //     }
+    // },[almost, correct, currAttempt.attempt, letter, setCorrectLetters]);
 
     return (
         <div className={letterClass}>
