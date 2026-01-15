@@ -1,49 +1,30 @@
-import React, { useContext, useEffect } from "react";
-import { WordleContext } from "./index";
+import React from "react";
+import { useWordleContext } from "./wordle-context";
 
-const Letter = ( { letterPos, attemptVal } ) => {
+const Letter = ( { rowIndex, letterIndex }) => {
 
-    const {
-        board,
-        correctWord,
-        currAttempt,
-        disabledLetters,
-        presentLetters,
-        correctLetters,
-        setCorrectLetters,
-        attempts
-    } = useContext(WordleContext);
+    const { board, letterState, currentRow, currentGuess } = useWordleContext();
 
-    const letter = board[attemptVal][letterPos];
-    const correct = correctWord.toUpperCase()[letterPos] === letter;
-    // const almost = !correct && letter !== "" && correctWord.toUpperCase().includes(letter);    
-
-    const setLetterClass = () => {
-        let result = 'wordle-letter';
-        // if (currAttempt.attempt > attemptVal) {
-        //     if (correct) {
-        //         result += 'correct';
-        //     } else if (almost) {
-        //         result += 'present';
-        //     } else {
-        //         result += 'absent';
-        //     }
-        // }
-        return result;
+    let letter = '';
+    if (rowIndex < currentRow) {
+        letter = board[rowIndex][letterIndex];
+    } else if (rowIndex === currentRow) {
+        letter = currentGuess[letterIndex] || '';
     }
 
-    let letterClass = setLetterClass();
-
-    // useEffect(() => {
-    //     if (letter !== "" && !almost && correct) {
-    //         setCorrectLetters((prev) => [...prev, letter]);
-    //     }
-    // },[almost, correct, currAttempt.attempt, letter, setCorrectLetters]);
+    const state = letterState[rowIndex]?.[letterIndex];
+    
+    const getClassName = () => {
+        let className = 'wordle-letter';
+        if (state === 'correct') className += ' letter-correct';
+        else if (state === 'present') className += ' letter-present';
+        else if (state === 'absent') className += ' letter-absent';
+        else if (letter && rowIndex === currentRow) className += ' letter-filled';
+        return className;
+    }
 
     return (
-        <div className={letterClass}>
-            {letter}
-        </div>
+        <div className={getClassName()}>{letter}</div>
     )
 }
 export default Letter;
