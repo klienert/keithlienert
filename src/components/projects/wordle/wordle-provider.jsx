@@ -34,8 +34,7 @@ const WordleProvider = ( { children }) => {
         const loadWords = async () => {
             const { wordSet: ws, todaysWord: tw } = await generateWordSet();
             setWordSet(ws);            
-            setCorrectWord(tw.toUpperCase());
-            // setCorrectWord('TIGHT'); // testing
+            setCorrectWord(tw.toUpperCase());            
         }
         loadWords();
     },[]);
@@ -100,7 +99,7 @@ const WordleProvider = ( { children }) => {
         setKeyStates(newKeyState);
     }
 
-    const submitGuess = () => {
+    const submitGuess = () => {        
         // Validate word exists in wordSet
         if (!wordSet.has(currentGuess.toLowerCase())) {
             // Show error - invalid word
@@ -114,18 +113,17 @@ const WordleProvider = ( { children }) => {
         setBoard(newBoard);
                 
         const rowStates = evaluateGuess(currentGuess, currentRow);
-        console.log(rowStates);
         updateKeyboardStates(currentGuess, rowStates);
 
         // Check win condition
         if (currentGuess === correctWord) {
-            setGameStatus('won');
+            setGameStatus('won');            
             return;
         }
         
         // Check loss condition
         if (currentRow === 5) {
-            setGameStatus('lost');
+            setGameStatus('lost');            
             return;
         }
         
@@ -145,8 +143,13 @@ const WordleProvider = ( { children }) => {
             }
         } else if (key === 'BACKSPACE' || key === 'BACK') {
             setCurrentGuess(prev => prev.slice(0, -1));
-        } else if (/^[A-Z]$/.test(key) && currentGuess.length < 5) {
-            setCurrentGuess(prev => prev + key);
+        } else if (/^[A-Z]$/.test(key)) {
+            setCurrentGuess(prev => {
+                if (prev.length < 5) {
+                    return prev + key;
+                }
+                return prev;  // Don't add if already 5 letters
+            });
         }
     },[currentGuess, gameStatus]);     
 
@@ -199,6 +202,7 @@ const WordleProvider = ( { children }) => {
         letterState,
         keyStates,
         wordSet,
+        setCorrectWord,
         correctWord,
         handleKeyPress,
         resetGame
