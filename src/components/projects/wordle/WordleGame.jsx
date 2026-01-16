@@ -19,7 +19,6 @@ const WordleGame = () => {
                 ) : (
                     <GameOver />
                 )}
-                
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ import * as Words from './words/Words';
 // Mock the generateWordSet function
 vi.mock('./words/Words', () => ({
     generateWordSet: vi.fn(() => Promise.resolve({
-        wordSet: new Set(['hello', 'wrong', 'fails', 'world', 'tests', 'react', 'tight']),
+        wordSet: new Set(['hello', 'tiger', 'wrong', 'fails', 'world', 'tests', 'react', 'tight']),
         todaysWord: 'TIGHT'
     }))
 }));
@@ -22,8 +22,7 @@ function TestComponent() {
         currentGuess,
         currentRow,
         gameStatus,
-        board,
-        letterState,
+        board,        
         keyStates,
         correctWord,
         handleKeyPress
@@ -49,7 +48,7 @@ describe('WordleProvider', () => {
         vi.clearAllMocks();
     });
     
-    /* 
+     
     describe('Initial State', () => {
         it('provides initial context values', async () => {
             render(
@@ -88,9 +87,9 @@ describe('WordleProvider', () => {
             });
         });
     });
-    */
+    
 
-    /* 
+     
     describe('Key Press Handling', () => {
         it('adds letter to current guess', async () => {
             render(
@@ -165,9 +164,9 @@ describe('WordleProvider', () => {
             expect(result.current.currentGuess).toBe('AB');
         });
     });
-    */
+    
 
-    /* 
+    
     describe('Guess Submission', () => {
         it('does not submit guess with less than 5 letters', async () => {
             const { result } = renderHook(() => useWordleContext(), {
@@ -253,9 +252,9 @@ describe('WordleProvider', () => {
             });
         });
     });
-    */
+    
 
-    /*
+    
     describe('Game Win/Loss', () => {
         it('sets game status to won when correct word is guessed', async () => {
             const { result } = renderHook(() => useWordleContext(), {
@@ -316,9 +315,9 @@ describe('WordleProvider', () => {
             });            
         });
     });
-    */
     
-
+    
+    
     describe('Letter State Evaluation', () => {
         it('marks correct letters green', async () => {
             const { result } = renderHook(() => useWordleContext(), {
@@ -344,35 +343,36 @@ describe('WordleProvider', () => {
             act(() => {
                 result.current.handleKeyPress('ENTER');
             });
-            console.log('currGuess: ', result.current.currentGuess);
+            // console.log('currGuess: ', result.current.currentGuess);
                         
             await waitFor(() => {
                 expect(result.current.letterState[0][0]).toBe('correct'); // T
                 expect(result.current.letterState[0][1]).toBe('correct'); // I
                 expect(result.current.letterState[0][2]).toBe('correct'); // G
                 expect(result.current.letterState[0][3]).toBe('absent');  // E
-                expect(result.current.letterState[0][4]).toBe('present'); // R (T is in word)
+                expect(result.current.letterState[0][4]).toBe('absent'); // R (T is in word)
             });            
         });
     });
+    
 
+    
+    describe('Keyboard Events', () => {
+        it('responds to window keyboard events', async () => {
+            render(
+                <WordleProvider>
+                <TestComponent />
+                </WordleProvider>
+            );
 
-    // describe('Keyboard Events', () => {
-    //     it('responds to window keyboard events', async () => {
-    //         render(
-    //             <WordleProvider>
-    //             <TestComponent />
-    //             </WordleProvider>
-    //         );
+        await waitFor(() => {
+            expect(screen.getByTestId('correct-word')).toHaveTextContent('TIGHT');
+        });
 
-    //     await waitFor(() => {
-    //         expect(screen.getByTestId('correct-word')).toHaveTextContent('TIGHT');
-    //     });
+        // Simulate keyboard events
+        await userEvent.keyboard('ABC');
 
-    //     // Simulate keyboard events
-    //     await userEvent.keyboard('ABC');
-
-    //     expect(screen.getByTestId('current-guess')).toHaveTextContent('ABC');
-    //     });
-    // });
+        expect(screen.getByTestId('current-guess')).toHaveTextContent('ABC');
+        });
+    });    
 });

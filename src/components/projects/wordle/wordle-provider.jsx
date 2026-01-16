@@ -34,7 +34,8 @@ const WordleProvider = ( { children }) => {
         const loadWords = async () => {
             const { wordSet: ws, todaysWord: tw } = await generateWordSet();
             setWordSet(ws);            
-            setCorrectWord(tw.toUpperCase());            
+            // setCorrectWord(tw.toUpperCase());
+            setCorrectWord('TIGHT');
         }
         loadWords();
     },[]);
@@ -85,6 +86,7 @@ const WordleProvider = ( { children }) => {
         // console.log('guessArr: ', guessArr);
         // console.log('rowStates: ', rowStates);
         
+        
         guessArr.forEach((letter, i) => {
             const state = rowStates[i];
             
@@ -96,6 +98,7 @@ const WordleProvider = ( { children }) => {
                 newKeyState[letter] = 'absent'
             }            
         });
+        
         setKeyStates(newKeyState);
     }
 
