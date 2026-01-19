@@ -1,14 +1,18 @@
-import React from "react";
+
 import { useWordleContext } from "./wordle-context";
 
 const GameOver = () => {
-    const { gameStatus, correctWord,resetGame } = useWordleContext();
+    const { gameStatus, correctWord, resetGame} = useWordleContext();
+
+    const handleReset = async () => {
+        await resetGame();
+    };
 
     return (
         <div className="wordle-game-over">
             {gameStatus === 'won' ? (
                 <>
-                    <h3>You Won!</h3>                    
+                    <h3>You Won!</h3>
                 </>
             ) : (
                 <>
@@ -18,7 +22,8 @@ const GameOver = () => {
             )}
             <div className="wordle-reset">
                 <button
-                    onClick={resetGame}
+                    onClick={handleReset}
+                    className={`reset-button ${gameStatus === 'won' ? 'reset-button-won' : 'reset-button-lost'}`}
                 >Play Again?</button>
             </div>
         </div>

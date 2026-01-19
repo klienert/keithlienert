@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { WordleContext } from "./wordle-context";
 import { generateWordSet } from "./words/Words";
+import { useGameHistory } from "./hooks/useGameHistory";
+
 
 const WordleProvider = ( { children }) => {
-
+    const { addGame, stats } = useGameHistory();
+    
     // game state
     const [board, setBoard] = useState([
         ["", "", "", "", ""], 
@@ -28,14 +31,18 @@ const WordleProvider = ( { children }) => {
     // word data
     const [wordSet, setWordSet] = useState(null);
     const [correctWord, setCorrectWord] = useState('');
+    const [currGameData, setCurrGameData ] = useState({ date: '', numGuesses: 0, correctWord: '', status: '' });
+    // stats modal
+    const [showStats, setShowStats] = useState(false);
+
+    
 
     // load words on initial mount
     useEffect(() => {
         const loadWords = async () => {
             const { wordSet: ws, todaysWord: tw } = await generateWordSet();
             setWordSet(ws);            
-            // setCorrectWord(tw.toUpperCase());
-            setCorrectWord('TIGHT');
+            setCorrectWord(tw.toUpperCase());
         }
         loadWords();
     },[]);
@@ -83,9 +90,6 @@ const WordleProvider = ( { children }) => {
     const updateKeyboardStates = (guess, rowStates ) => {
         const newKeyState = { ...keyStates };
         let guessArr = guess.split('');
-        // console.log('guessArr: ', guessArr);
-        // console.log('rowStates: ', rowStates);
-        
         
         guessArr.forEach((letter, i) => {
             const state = rowStates[i];
@@ -120,13 +124,38 @@ const WordleProvider = ( { children }) => {
 
         // Check win condition
         if (currentGuess === correctWord) {
-            setGameStatus('won');            
+            setGameStatus('won');
+            addGame({
+                word: correctWord,
+                guesses: currentRow + 1,
+                won: true,
+                attempts: currentRow + 1 
+            });
+            setCurrGameData(prev => ({
+                ...prev,
+                numGuesses: currentRow + 1,
+                correctWord: correctWord,
+                status: 'won'
+            }));
             return;
         }
         
         // Check loss condition
         if (currentRow === 5) {
-            setGameStatus('lost');            
+            setGameStatus('lost');
+            addGame({
+                word: correctWord,
+                guesses: currentRow + 1,
+                won: false,
+                attempts: currentRow + 1 
+            });
+            setCurrGameData(prev => ({
+                ...prev,
+                date: new Date(),
+                numGuesses: currentRow + 1,
+                correctWord: correctWord,
+                status: 'lost'
+            }));
             return;
         }
         
@@ -166,8 +195,10 @@ const WordleProvider = ( { children }) => {
         };
     }, [handleKeyPress]);    
 
-    const resetGame = () => {
-           // game state
+    const resetGame = async () => {
+        // generate new word
+        const { wordSet: ws, todaysWord: tw } = await generateWordSet();
+        
         setBoard([
             ["", "", "", "", ""], 
             ["", "", "", "", ""], 
@@ -176,9 +207,11 @@ const WordleProvider = ( { children }) => {
             ["", "", "", "", ""], 
             ["", "", "", "", ""]
         ]);
+
         setCurrentRow(0);
         setCurrentGuess('');
         setGameStatus('playing'); // 'playing', 'won', 'lost'
+        
         setLetterState([
             [null, null, null, null, null],
             [null, null, null, null, null],
@@ -186,29 +219,30 @@ const WordleProvider = ( { children }) => {
             [null, null, null, null, null],
             [null, null, null, null, null]
         ]);
-        setKeyStates({});
-        // generate new word
-        const loadWords = async () => {
-            const { wordSet: ws, todaysWord: tw } = await generateWordSet();
-            setWordSet(ws);            
-            setCorrectWord(tw);            
-        }
-        loadWords();
-    };
 
+        setKeyStates({});
+        
+        setWordSet(ws);            
+        setCorrectWord(tw.toUpperCase());
+    };
     
     const value = {
         board,        
         currentGuess, 
         currentRow,
-        gameStatus,        
+        gameStatus,
         letterState,
         keyStates,
         wordSet,
         setCorrectWord,
         correctWord,
         handleKeyPress,
-        resetGame
+        resetGame,
+        currGameData,
+        stats,
+        showStats,
+        setShowStats,
+        addGame
     }
 
     return (
