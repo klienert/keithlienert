@@ -91,7 +91,7 @@
 .wordle-keyboard {
     display: flex;
     flex-direction: column;    
-    gap: 0.25rem;
+    gap: 0.5rem;
     width: 100%;
     height: 14rem;
     max-width: 32rem;
@@ -103,7 +103,7 @@
     width: 100%;
     touch-action: manipulation;
     justify-content: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
 }
 
 .key {
@@ -408,6 +408,23 @@
         width: 18rem;
         height: 21.5rem;
     }
+
+    .stats-modal {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        gap: .875rem;
+    }
+    
+    .stat-value, .guess-number {
+        font-size: 1.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+    }
+
 }
 
 @media (max-width: 350px) {
@@ -429,5 +446,13 @@
     .wordle-board {
         width: 16rem;
         height: 20rem;
+    }
+
+    .stat-value, .guess-number {
+        font-size: 1rem;
+    }
+
+    .stat-label {
+        font-size: 0.5rem;
     }
 }
