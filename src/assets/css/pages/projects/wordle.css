@@ -1,0 +1,433 @@
+:root {
+    --correct: #538d4e;
+    --almost: #b59f3b;
+    --disable: #3a3a3c;
+    --absent: #3a3a3c;
+    --key-evaluated-text: #f8f8f8;
+    --font-size: 2rem;
+    --key-width: 3rem;
+    --key-height: 4rem;
+    --stat-color: #444;
+}
+
+.wordle-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #DDD;    
+    padding: 1rem;
+    width: 100%;
+}
+
+.wordle-header {
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 2.25rem;
+}
+
+.wordle-title {
+    /* margin: 0 auto; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: var(--font-size);
+}
+
+.wordle-stats {
+    margin-left: auto;
+}
+
+.wordle-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.wordle-board {
+    width: 20rem;
+    height: 23.5rem;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.wordle-board-row {
+    flex: 33%;
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    gap: .5rem;
+}
+
+.wordle-letter {
+    flex: 33%;
+    height: 100%;
+    border: 1px solid grey;    
+    display: grid;
+    place-items: center;
+    font-size: var(--font-size);
+    padding: .25rem;
+    line-height: 1rem;
+    font-weight: 600;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.letter-correct { background-color: var(--correct); }
+.letter-present { background-color: var(--almost); }
+.letter-absent { background-color: var(--absent); }
+.letter-filled { border-color: #878a8c; }
+
+
+/* Keyboard */
+.wordle-keyboard {
+    display: flex;
+    flex-direction: column;    
+    gap: 0.25rem;
+    width: 100%;
+    height: 14rem;
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+.keyboard-row {
+    display: flex;
+    width: 100%;
+    touch-action: manipulation;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.key {
+    width: 2.65rem;
+    height: 3.625rem;
+    border-radius: 0.25rem;
+    display: grid;
+    place-items: center;
+    font-size: 0.875rem;
+    font-weight: bold;
+    background-color: grey;
+    color: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.1s;
+}
+
+.key:hover {
+    opacity: .9;
+}
+
+.key-big { 
+    flex: 1.5;
+    max-width: 65px;
+    font-size: 0.75rem;
+ }
+
+.key-correct { background-color: var(--correct);}
+.key-present { background-color: var(--almost);}
+.key-absent { background-color:  var(--absent);}
+
+.wordle-game-over {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wordle-reset {
+    font-size: 1.25rem;
+}
+
+.reset-button {
+    color: #FFF;
+    padding: .85rem;
+    font-weight: 500;
+    padding: .5rem;
+}
+
+.reset-button-won { 
+    color: #FFF;
+    background-color: var(--correct); 
+    padding: 1rem;
+    font-weight: 500;
+}
+.reset-button-lost { 
+    color: #FFF;
+    padding: 1rem; 
+    background-color: var(--almost); 
+    font-weight: 500;
+}
+
+/* Stats Modal */
+.stats-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to { 
+        opacity: 1;
+    }    
+}
+
+.stats-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    color: var(--stat-color);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }    
+}
+
+.stats-close-x {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #111;
+    line-height: 1;
+}
+
+.stats-close-x:hover {
+    border: 1px solid #222;
+}
+
+.stats-modal h2 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.stats-modal h3 {
+    margin-top: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);    
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--stat-color);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+}
+
+.stats-distribution {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.distribution-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.guess-number {
+    font-weight: bold;
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+.bar-container {
+    flex: 1;
+    height: 1.5rem;
+    display: flex;
+}
+
+.bar {
+    background-color: #d3d6da;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: .5rem;
+    transition: width 0.3s ease;
+    min-height: 1.5rem;
+    min-width: 2rem;
+}
+
+.bar .has-count {
+    background-color: var(--correct);
+    font-size: 0.875rem;
+}
+
+.additional-stats {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.additional-stats p {
+    margin: 0.5rem 0;
+}
+
+.streak-indicator {
+    color: var(--correct);
+    font-weight: bold;
+}
+
+.stats-close-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: #6aaa64;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.stats-close-btn:hover {
+    background-color: var(--correct);
+}
+
+@media (max-width: 768px) {
+    .wordle-keyboard {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .keyboard-row {
+        gap: 0.2rem;
+    }
+
+    .key {
+        flex: 1;
+        min-width: 0;
+        width: auto;
+        max-width: 2.5rem;
+        height: 3.25rem;
+        font-size: 0.75rem;
+        margin: 0;
+        border-radius: 0.2rem;
+    }
+    
+    .key-big {
+        flex: 1.5;
+        width: auto;
+        max-width: 3.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .wordle-keyboard {
+        padding: 0 0.25rem;
+    }
+    
+    .keyboard-row {
+        gap: 0.15rem;
+    }
+    
+    .key {
+        max-width: 1.875rem;
+        height: 2.875rem;
+        font-size: 0.7rem;
+        border-radius: 0.15rem;
+    }
+    
+    .key-big {
+        max-width: 2.8rem;
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 425px) {
+    .key {
+        max-width: 1.625rem;
+        height: 2.625rem;
+        font-size: 0.65rem;
+    }
+    
+    .key-big {
+        max-width: 2.5rem;
+        font-size: 0.55rem;
+    }
+    
+    .wordle-board {
+        width: 18rem;
+        height: 21.5rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .keyboard-row {
+        gap: 0.1rem;
+    }
+    
+    .key {
+        max-width: 1.5rem;
+        height: 2.375;
+        font-size: 0.6rem;
+    }
+    
+    .key-big {
+        max-width: 2.25rem;
+        font-size: 0.5rem;
+    }
+
+    .wordle-board {
+        width: 16rem;
+        height: 20rem;
+    }
+}
