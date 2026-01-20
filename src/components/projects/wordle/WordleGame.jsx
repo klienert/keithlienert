@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useWordleContext } from "./wordle-context";
 import { IoStatsChartSharp } from "react-icons/io5";
 import Board from "./Board";
@@ -7,12 +7,8 @@ import GameOver from "./GameOver";
 import GameStats from "./Stats";
 
 const WordleGame = () => {
-    const { gameStatus, showStats, stats, setShowStats } = useWordleContext();
-
-    useEffect(() => {
-        console.log('stat? ', stats);
-    },[]);
-
+    const { gameStatus, showStats, setShowStats } = useWordleContext();
+    
     return (
         <div className="wordle-container">
             <div className="wordle-header">

@@ -30,7 +30,7 @@ const GameStats = () => {
                         <div className="stat-label">Wins/Played</div>
                     </div>
                     <div className="stat">
-                        <div className="stat-value">{stats.winPercentage}</div>
+                        <div className="stat-value">{stats.winPercentage}%</div>
                         <div className="stat-label">Win %</div>
                     </div>
                     <div className="stat">
@@ -75,7 +75,7 @@ const GameStats = () => {
                     <div className="additional-stats">
                         <p>Average Guesses: <strong>{stats.averageGuesses}</strong></p>
                         {stats.isOnStreak && (
-                        <p className="streak-indicator">🔥 You're on a streak!</p>
+                        <p className="streak-indicator">&#128293; You're on a streak!</p>
                         )}
                     </div>
                 )}

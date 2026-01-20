@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { projectData } from '../../components/projects/projectData';
-import PrimaryButton from "../../components/backBtn/PrimaryButton";
+import PrimaryButton from "../../components/primaryBtn/PrimaryButton";
 import '../../assets/css/pages/projects/projects.css';
 
 const Projects = ({ onNavClick }) => {

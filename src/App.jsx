@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import PrimaryButton from './components/backBtn/PrimaryButton';
+import PrimaryButton from './components/primaryBtn/PrimaryButton';
 import Home from './pages/home/index';
 import Sidebar from './pages/sidebar';
 import About from './pages/about';
@@ -47,14 +47,9 @@ function App() {
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
-    // useEffect(() => {
-    //     console.log('currPage: ', currentPage.page);
-    // }, [currentPage.page]);
-
-
     return (
         <div className="app">
-            <div className="container">
+            <div className="app-container">
                 <Sidebar 
                     currentPage={currentPage.page}
                     onNavClick={handleNavClick}
@@ -69,7 +64,6 @@ function App() {
                         <ProjectView projectId={currentPage.projectId} onNavClick={handleNavClick} />
                         <PrimaryButton 
                             clickFn={() => handleNavClick('projects')}
-                            btnClass={'btn btn-secondary'}
                             btnText={'Back to Projects'}
                         />
                     </>)
