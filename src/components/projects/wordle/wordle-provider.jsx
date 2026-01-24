@@ -34,8 +34,8 @@ const WordleProvider = ( { children }) => {
     const [currGameData, setCurrGameData ] = useState({ date: '', numGuesses: 0, correctWord: '', status: '' });
     // stats modal
     const [showStats, setShowStats] = useState(false);
-
-    
+    // non-wordle word error
+    const [wordError, setWordError] = useState(null);
 
     // load words on initial mount
     useEffect(() => {
@@ -109,11 +109,13 @@ const WordleProvider = ( { children }) => {
     const submitGuess = () => {        
         // Validate word exists in wordSet
         if (!wordSet.has(currentGuess.toLowerCase())) {
-            // Show error - invalid word
-            alert('Word is not a wordle word.');
+            setWordError(currentGuess);
+            setTimeout(() => {
+                setWordError(null);
+            }, 2300);
             return;
         }
-        
+
         // Update the board with the current guess
         const newBoard = [...board];
         newBoard[currentRow] = currentGuess.split(''); // Convert string to array here
@@ -242,7 +244,9 @@ const WordleProvider = ( { children }) => {
         stats,
         showStats,
         setShowStats,
-        addGame
+        addGame, 
+        wordError,
+        setWordError
     }
 
     return (

@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useWordleContext } from "./wordle-context";
 import { IoStatsChartSharp } from "react-icons/io5";
 import Board from "./Board";
 import Keyboard from "./Keyboard";
 import GameOver from "./GameOver";
 import GameStats from "./Stats";
+import Error from "./Error";
 
 const WordleGame = () => {
-    const { gameStatus, showStats, setShowStats } = useWordleContext();
+    const { gameStatus, showStats, setShowStats, wordError } = useWordleContext();
+
+    useEffect(() => {
+        if (wordError) {
+            console.log(wordError);
+        }
+    },[wordError]);
     
     return (
         <div className="wordle-container">
@@ -22,6 +29,7 @@ const WordleGame = () => {
                 </div>
             </div>            
             <div className="wordle-game">
+                {wordError ? (<Error />) : null}
                 <Board />
                 {gameStatus === 'playing' ? (
                     <Keyboard />
