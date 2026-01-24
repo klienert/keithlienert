@@ -47,6 +47,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    position: relative;
 }
 
 .wordle-board {
@@ -128,7 +129,7 @@
 
 .key-big { 
     flex: 1.5;
-    max-width: 65px;
+    max-width: 4.25rem;
     font-size: 0.75rem;
  }
 
@@ -342,14 +343,89 @@
     background-color: var(--correct);
 }
 
+/* Error overlay */
+.error-overlay {
+    position: absolute;
+    top: 2rem; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 20rem;
+    z-index: 10;
+    animation: fadeInOut 2.5s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+.error-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    background-color: var(--almost);
+    color: var(--key-evaluated-text);
+    padding: 1rem .5rem .5rem .5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.error-container button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: transparent;
+    border: 1px solid var(--absent);
+    border-radius: .125rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-container button:hover {
+    background-color: rgba(255, 255, 255, 0.65);
+}
+
+.error-overlay p {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0.25rem 0;
+}
+
+.error-word {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
+    .wordle-container {
+        padding: .75rem;
+    }
+
     .wordle-keyboard {
         max-width: 100%;
         padding: 0 0.5rem;
-    }
-
-    .keyboard-row {
-        gap: 0.2rem;
     }
 
     .key {
@@ -358,7 +434,7 @@
         width: auto;
         max-width: 2.5rem;
         height: 3.25rem;
-        font-size: 0.75rem;
+        /* font-size: 0.75rem; */
         margin: 0;
         border-radius: 0.2rem;
     }
@@ -366,41 +442,45 @@
     .key-big {
         flex: 1.5;
         width: auto;
-        max-width: 3.4rem;
+        max-width: 4rem;
     }
 }
 
 @media (max-width: 576px) {
+    .wordle-container {
+        padding: .65rem;
+    }
+
     .wordle-keyboard {
         padding: 0 0.25rem;
     }
-    
-    .keyboard-row {
-        gap: 0.15rem;
-    }
-    
+        
     .key {
-        max-width: 1.875rem;
-        height: 2.875rem;
-        font-size: 0.7rem;
-        border-radius: 0.15rem;
+        max-width: 2rem;
+        height: 3rem;
+        /* font-size: 0.7rem; */
+        /* border-radius: 0.15rem; */
     }
     
     .key-big {
-        max-width: 2.8rem;
-        font-size: 0.6rem;
+        max-width: 3.5rem;
+        font-size: 0.6rem; 
     }
 }
 
 @media (max-width: 425px) {
+    .wordle-container {
+        padding: .4rem;
+    }
+
     .key {
-        max-width: 1.625rem;
-        height: 2.625rem;
-        font-size: 0.65rem;
+        max-width: 1.975rem;
+        height: 2.85rem;
+        font-size: 0.8rem;
     }
     
     .key-big {
-        max-width: 2.5rem;
+        max-width: 3rem;
         font-size: 0.55rem;
     }
     
@@ -428,19 +508,23 @@
 }
 
 @media (max-width: 350px) {
+    .wordle-container {
+        padding: .125rem;
+    }
+
     .keyboard-row {
-        gap: 0.1rem;
+        gap: 0.3rem;
     }
     
     .key {
-        max-width: 1.5rem;
-        height: 2.375;
-        font-size: 0.6rem;
+        max-width: 1.65rem;
+        height: 2.5rem;
+        font-size: 0.7rem;
     }
     
     .key-big {
-        max-width: 2.25rem;
-        font-size: 0.5rem;
+        max-width: 2.5rem;
+        font-size: 0.65rem;
     }
 
     .wordle-board {
