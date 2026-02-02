@@ -28,7 +28,7 @@ const Weather = ({ data, isLoading }) => {
     return (<>
         {isLoading ? <div>Weather Data Loading...</div>
         : 
-        <div className="weather row">
+        <div className="weather-row">
             <div className="weather-current">
                 <div className="weather-current-loc">
                     <p className="curr-location-name">{data?.location.name}</p>
