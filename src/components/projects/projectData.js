@@ -5,7 +5,7 @@ export const projectData = [
         description: 'Browser based version of the popular NY Times Game',
         tech: ['JavaScript', 'HTML', 'CSS'],
         tags: ['React', 'JS'],
-        github: 'https://github.com/klienert',
+        github: 'https://github.com/klienert/keithlienert/tree/main/src/components/projects/wordle',
         featured: true
     },
     {
