@@ -6,10 +6,6 @@ import '../../assets/css/pages/projects/projects.css';
 
 const Projects = ({ onNavClick }) => {
 
-    const gitHubLink = () => {
-        window.open('https://github.com/klienert', '_blank');
-    }
-
     return (
         <div className="page-content">
             <div className="page-section">
@@ -33,7 +29,7 @@ const Projects = ({ onNavClick }) => {
                                     btnText={'View Project'}
                                 />
                                 <PrimaryButton
-                                    clickFn={gitHubLink}
+                                    clickFn={() => window.open(`${project.github}`, '_blank')}
                                     btnClass={'github-button'}
                                     btnText={<FaGithub size="2em"/>}
                                 />

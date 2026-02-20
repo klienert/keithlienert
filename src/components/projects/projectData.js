@@ -14,7 +14,7 @@ export const projectData = [
         description: 'Simple Weather app that consumes a free REST API',
         tech: ['JavaScript', 'React', 'API'],
         tags: ['JS', 'HTML', 'CSS', 'API'],
-        github: 'https://github.com/klienert',
+        github: 'https://github.com/klienert/keithlienert/tree/main/src/components/projects/weather',
         featured: true
     },
     {
